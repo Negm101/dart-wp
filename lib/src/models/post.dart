@@ -92,6 +92,12 @@ class Post {
   ///The terms assigned to the object in the post_tag taxonomy.
   final List<int>? tags;
 
+  ///The Featured Media Link
+  final String? featuredMediaLink;
+
+  ///The Post Language
+  final String? lang;
+
   final EmbedModel? embedModel;
 
   Post(
@@ -121,7 +127,10 @@ class Post {
       this.template,
       this.categories,
       this.tags,
-      this.embedModel});
+      this.embedModel,
+      this.featuredMediaLink,
+      this.lang
+      });
 
   Post copyWith(
       {String? date,
@@ -148,6 +157,8 @@ class Post {
       dynamic meta,
       bool? sticky,
       String? template,
+      String? featuredMediaLink,
+      String? lang,
       List<int>? categories,
       List<int>? tags,
       EmbedModel? embedModel}) {
@@ -178,6 +189,8 @@ class Post {
         template: template ?? this.template,
         categories: categories ?? this.categories,
         tags: tags ?? this.tags,
+        featuredMediaLink: featuredMediaLink ?? this.featuredMediaLink,
+        lang: lang ?? this.lang,
         embedModel: embedModel ?? this.embedModel);
   }
 
@@ -209,6 +222,8 @@ class Post {
       'template': template,
       'categories': categories,
       'tags': tags,
+      'og_image' : featuredMediaLink,
+      'og_locale' : lang
     };
   }
 
@@ -238,6 +253,8 @@ class Post {
         meta: map['meta'],
         sticky: map['sticky'],
         template: map['template'],
+        featuredMediaLink: map['yoast_head_json']?['og_image']?[0]?['url']!,
+        lang: map['yoast_head_json']?['og_locale'],
         categories: List<int>.from(map['categories'] ?? []),
         tags: List<int>.from(map['tags'] ?? []),
         embedModel: EmbedModel.fromMap(map['_embedded'] ?? {})
@@ -251,7 +268,7 @@ class Post {
 
   @override
   String toString() {
-    return 'Post(date: $date, dateGmt: $dateGmt, guid: $guid, id: $id, link: $link, modified: $modified, modifiedGmt: $modifiedGmt, slug: $slug, status: $status, type: $type, password: $password, permalinkTemplate: $permalinkTemplate, generatedSlug: $generatedSlug, title: $title, content: $content, author: $author, excerpt: $excerpt, featuredMedia: $featuredMedia, commentStatus: $commentStatus, pingStatus: $pingStatus, format: $format, meta: $meta, sticky: $sticky, template: $template, categories: $categories, tags: $tags)';
+    return 'Post(date: $date, dateGmt: $dateGmt, guid: $guid, id: $id, link: $link, modified: $modified, modifiedGmt: $modifiedGmt, slug: $slug, status: $status, type: $type, password: $password, permalinkTemplate: $permalinkTemplate, generatedSlug: $generatedSlug, title: $title, content: $content, author: $author, excerpt: $excerpt, featuredMedia: $featuredMedia, commentStatus: $commentStatus, pingStatus: $pingStatus, format: $format, meta: $meta, sticky: $sticky, template: $template, categories: $categories, tags: $tags, featuredMediaLink: $featuredMediaLink, language: $lang )';
   }
 
   @override
@@ -284,6 +301,8 @@ class Post {
         o.meta == meta &&
         o.sticky == sticky &&
         o.template == template &&
+        o.lang == lang &&
+        o.featuredMediaLink == featuredMediaLink &&
         listEquals(o.categories, categories) &&
         listEquals(o.tags, tags);
   }
@@ -315,6 +334,8 @@ class Post {
         sticky.hashCode ^
         template.hashCode ^
         categories.hashCode ^
+        featuredMediaLink.hashCode ^
+        lang.hashCode^
         tags.hashCode;
   }
 }
