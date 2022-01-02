@@ -8,6 +8,10 @@
 [![Build Status](https://travis-ci.org/dhmgroup/dart-wp.svg?branch=master)](https://travis-ci.org/dhmgroup/dart-wp)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/dhmgroup/dart-wp/graphs/commit-activity)
 
+## Fork Decription
+This fork adds the functionalty of being able to get an image url from seo plugin post endpoint.
+
+
 ## Description
 
 A WordPress REST API client for dart with support for WooCommerce and custom namespaces/endpoints.
